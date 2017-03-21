@@ -10,14 +10,14 @@ var enk = {
   calculatePuz: function(req, res, next) {
 
 
-    var limit= req.query.limit || 1000000;
+    var lim= req.query.limit || 1000000;
 
     //Using Singleton pattern here
-    if(global.result && global.limit==limit){
+    if(global.result && global.limit==lim){
       return res.json(global.result);
     }
 
-    enkHelper.extractor(limit,function(err,result){
+    enkHelper.extractor(lim,function(err,result){
       if(!err){
        return res.json(result)
      }
@@ -54,17 +54,17 @@ var enk = {
       }
     }
 
-    for (var j=0;j< array[i].length; j+=3) {
-      var part_a = (array[i][j] == ' ') ? "blank":array[i][j];
-      var part_b = (array[i][j+1] == ' ') ? "blank":array[i][j+1];
-      var part_c = (array[i][j+2] == ' ') ? "blank":array[i][j+2];
+      for (var j=0;j< array[i].length; j+=3) {
+        var part_a = (array[i][j] == ' ') ? "blank":array[i][j];
+        var part_b = (array[i][j+1] == ' ') ? "blank":array[i][j+1];
+        var part_c = (array[i][j+2] == ' ') ? "blank":array[i][j+2];
 
-      var partionFormat = part_a+part_b+part_c;
-      enkHelper.partionMap(partionFormat,function(err,result){
-        Digit27Queue.push(result);
-      })
+        var partionFormat = part_a+part_b+part_c;
+        enkHelper.partionMap(partionFormat,function(err,result){
+          Digit27Queue.push(result);
+        })
 
-    }
+      }
   }
 
   res.writeHead(200, {'Content-Type': 'application/force-download','Content-disposition':'attachment; filename=ParsedInvoice.txt'});

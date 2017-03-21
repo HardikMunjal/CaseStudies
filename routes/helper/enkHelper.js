@@ -22,12 +22,14 @@ extractor: function(limit, cb) {
     else if(i%7==0 && i%4==0){
         parsedResult.push('marcopolo');
     }
-    else if(i==limit){
+    
+    else{parsedResult.push(i)
+         }
+
+    if(i==limit){
         arrayObject['last']=parsedResult;
         parsedResult=[];
     }
-    else{parsedResult.push(i)
-         }
       }
       global.result =arrayObject;
       global.limit=limit;
